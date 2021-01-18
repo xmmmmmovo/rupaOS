@@ -1,3 +1,0 @@
-E:/SandBearOS/test/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-E:/SandBearOS/test/cmake-build-debug/CMakeFiles/test.dir
-E:/SandBearOS/test/cmake-build-debug/CMakeFiles/edit_cache.dir

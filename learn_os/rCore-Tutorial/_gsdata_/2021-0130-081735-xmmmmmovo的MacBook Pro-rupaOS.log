@@ -1,0 +1,7 @@
+2021-01-30 08:17:36: -- Analysis Started by Analyze And Sync All Command
+2021-01-30 08:17:37: Changes: 1, Conflicts: 0, CopyTime: 0, FixState: 0, Errors: 0, All: 61
+2021-01-30 08:17:37: Left to Right: Delete File: 1 
+2021-01-30 08:17:37: == Sync Started by Analyze And Sync All Command
+2021-01-30 08:17:37: Delete File 'sftp://39.105.110.28:57122/root/rcore/os/Makefile'
+2021-01-30 08:17:37: == Sync Complete. Time: 00:00:00, Speed: 0.0/s, OK: 1, Errors: 0
+2021-01-30 08:17:37: 

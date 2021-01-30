@@ -1,0 +1,9 @@
+2021-01-30 08:19:01: -- Analysis Started by On File Change Incremental
+2021-01-30 08:19:02: Changes: 3, Conflicts: 0, CopyTime: 0, FixState: 0, Errors: 0, All: 61
+2021-01-30 08:19:02: Left to Right: Delete File: 3 
+2021-01-30 08:19:02: == Sync Started by On File Change Incremental
+2021-01-30 08:19:02: Delete File 'sftp://39.105.110.28:57122/root/rcore/Cargo.lock'
+2021-01-30 08:19:02: Delete File 'sftp://39.105.110.28:57122/root/rcore/Cargo.toml'
+2021-01-30 08:19:02: Delete File 'sftp://39.105.110.28:57122/root/rcore/Makefile'
+2021-01-30 08:19:02: == Sync Complete. Time: 00:00:00, Speed: 0.0/s, OK: 3, Errors: 0
+2021-01-30 08:19:02: 

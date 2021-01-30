@@ -1,0 +1,7 @@
+2021-01-30 18:11:07: -- Analysis Started by On File Change Incremental
+2021-01-30 18:11:07: Changes: 1, Conflicts: 0, CopyTime: 0, FixState: 0, Errors: 0, All: 63
+2021-01-30 18:11:07: Left to Right: Copy File: 1 
+2021-01-30 18:11:07: == Sync Started by On File Change Incremental
+2021-01-30 18:11:07: Copy Over '/Users/xmmmmmovo/Documents/code/rupaOS/learn_os/rCore-Tutorial/os/src/sbi.rs' -> 'sftp://39.105.110.28:57122/root/rcore/os/src/sbi.rs'
+2021-01-30 18:11:08: == Sync Complete. Time: 00:00:01, Speed: 0.0/s, OK: 1, Errors: 0
+2021-01-30 18:11:08: 

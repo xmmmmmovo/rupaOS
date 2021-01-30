@@ -1,0 +1,56 @@
+2021-01-30 08:15:44: -- Analysis Started by User Command
+2021-01-30 08:15:46: /.idea/.gitignore: excluded by folder aboveConflict: File differs on L and R but generations are the same
+2021-01-30 08:15:46: /.idea/deployment.xml: excluded by folder aboveConflict: File differs on L and R but generations are the same
+2021-01-30 08:15:46: /.idea/misc.xml: excluded by folder aboveConflict: File differs on L and R but generations are the same
+2021-01-30 08:15:46: /.idea/modules.xml: excluded by folder aboveConflict: File differs on L and R but generations are the same
+2021-01-30 08:15:46: /.idea/rCore-Tutorial.iml: excluded by folder aboveConflict: File differs on L and R but generations are the same
+2021-01-30 08:15:46: /.idea/sshConfigs.xml: excluded by folder aboveConflict: File differs on L and R but generations are the same
+2021-01-30 08:15:46: /.idea/vcs.xml: excluded by folder aboveConflict: File differs on L and R but generations are the same
+2021-01-30 08:15:46: /.idea/workspace.xml: excluded by folder aboveConflict: File differs on L and R but generations are the same
+2021-01-30 08:15:46: /os/.cargo/config: excluded by folder aboveConflict: File differs on L and R but generations are the same
+2021-01-30 08:15:46: /os/.idea/.gitignore: excluded by folder aboveConflict: File differs on L and R but generations are the same
+2021-01-30 08:15:46: /os/.idea/modules.xml: excluded by folder aboveConflict: File differs on L and R but generations are the same
+2021-01-30 08:15:46: /os/.idea/os.iml: excluded by folder aboveConflict: File differs on L and R but generations are the same
+2021-01-30 08:15:46: /os/.idea/vcs.xml: excluded by folder aboveConflict: File differs on L and R but generations are the same
+2021-01-30 08:15:46: /os/.idea/workspace.xml: excluded by folder aboveConflict: File differs on L and R but generations are the same
+2021-01-30 08:15:46: Analyze has finished with Conflicts. Resolve Conflicts by selecting the correct sync direction, then click Sync
+2021-01-30 08:15:46: Changes: 32, Conflicts: 14, CopyTime: 0, FixState: 0, Errors: 0, All: 61
+2021-01-30 08:15:46: Left to Right: Delete File: 16 
+2021-01-30 08:15:46: Right to Left: Copy File: 2 
+2021-01-30 08:15:46: -- Analysis Complete. Time 00:00:03, Speed: 20 files/s
+2021-01-30 08:15:46: 
+2021-01-30 08:15:47: == Sync Started by User Command
+2021-01-30 08:15:48: Delete File 'sftp://39.105.110.28:57122/root/rcore/.sync.ffs_db'
+2021-01-30 08:15:48: Delete File 'sftp://39.105.110.28:57122/root/rcore/user/.cargo/config'
+2021-01-30 08:15:48: Delete Folder 'sftp://39.105.110.28:57122/root/rcore/user/.cargo'
+2021-01-30 08:15:48: Delete Folder 'sftp://39.105.110.28:57122/root/rcore/user/build/disk'
+2021-01-30 08:15:48: Delete Folder 'sftp://39.105.110.28:57122/root/rcore/user/build'
+2021-01-30 08:15:48: Delete File 'sftp://39.105.110.28:57122/root/rcore/user/Cargo.toml'
+2021-01-30 08:15:48: Delete File 'sftp://39.105.110.28:57122/root/rcore/user/Makefile'
+2021-01-30 08:15:48: Delete File 'sftp://39.105.110.28:57122/root/rcore/user/src/bin/hello_world.rs'
+2021-01-30 08:15:48: Delete File 'sftp://39.105.110.28:57122/root/rcore/user/src/bin/notebook.rs'
+2021-01-30 08:15:48: Delete Folder 'sftp://39.105.110.28:57122/root/rcore/user/src/bin'
+2021-01-30 08:15:49: Delete File 'sftp://39.105.110.28:57122/root/rcore/user/src/config.rs'
+2021-01-30 08:15:49: Delete File 'sftp://39.105.110.28:57122/root/rcore/user/src/console.rs'
+2021-01-30 08:15:49: Delete File 'sftp://39.105.110.28:57122/root/rcore/user/src/lib.rs'
+2021-01-30 08:15:49: Delete File 'sftp://39.105.110.28:57122/root/rcore/user/src/syscall.rs'
+2021-01-30 08:15:49: Delete Folder 'sftp://39.105.110.28:57122/root/rcore/user/src'
+2021-01-30 08:15:49: Delete Folder 'sftp://39.105.110.28:57122/root/rcore/user'
+2021-01-30 08:15:49: Create Folder '/Users/xmmmmmovo/Documents/code/rupaOS/learn_os/rCore-Tutorial/.github/workflows'
+- ERROR: Cannot create folder: cannot make folder /Users/xmmmmmovo/Documents/code/rupaOS/learn_os/rCore-Tutorial/.github/workflows: File exists (error 17)
+2021-01-30 08:15:49: /.idea/.gitignore: unresolved conflict results in No Copy
+2021-01-30 08:15:49: /.idea/deployment.xml: unresolved conflict results in No Copy
+2021-01-30 08:15:49: /.idea/misc.xml: unresolved conflict results in No Copy
+2021-01-30 08:15:49: /.idea/modules.xml: unresolved conflict results in No Copy
+2021-01-30 08:15:49: /.idea/rCore-Tutorial.iml: unresolved conflict results in No Copy
+2021-01-30 08:15:49: /.idea/sshConfigs.xml: unresolved conflict results in No Copy
+2021-01-30 08:15:49: /.idea/vcs.xml: unresolved conflict results in No Copy
+2021-01-30 08:15:49: /.idea/workspace.xml: unresolved conflict results in No Copy
+2021-01-30 08:15:49: /os/.cargo/config: unresolved conflict results in No Copy
+2021-01-30 08:15:49: /os/.idea/.gitignore: unresolved conflict results in No Copy
+2021-01-30 08:15:49: /os/.idea/modules.xml: unresolved conflict results in No Copy
+2021-01-30 08:15:49: /os/.idea/os.iml: unresolved conflict results in No Copy
+2021-01-30 08:15:49: /os/.idea/vcs.xml: unresolved conflict results in No Copy
+2021-01-30 08:15:49: /os/.idea/workspace.xml: unresolved conflict results in No Copy
+2021-01-30 08:15:49: == Sync Complete. Time: 00:00:02, Speed: 58.0 KB/s, OK: 16, Errors: 1, Conflicts: 14
+2021-01-30 08:15:49: 

@@ -3,4 +3,6 @@ members = [
     "hello_world",
     "types",
     "self_types",
+    "variable_bind",
+    "variable_cast",
 ]

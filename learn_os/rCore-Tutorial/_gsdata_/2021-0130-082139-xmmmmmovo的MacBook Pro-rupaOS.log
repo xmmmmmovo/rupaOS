@@ -1,8 +1,0 @@
-2021-01-30 08:21:41: -- Analysis Started by On File Change Incremental
-2021-01-30 08:21:41: Changes: 2, Conflicts: 0, CopyTime: 0, FixState: 0, Errors: 0, All: 61
-2021-01-30 08:21:41: Left to Right: Copy File: 2 
-2021-01-30 08:21:41: == Sync Started by On File Change Incremental
-2021-01-30 08:21:41: Copy Over '/Users/xmmmmmovo/Documents/code/rupaOS/learn_os/rCore-Tutorial/os/.idea/workspace.xml' -> 'sftp://39.105.110.28:57122/root/rcore/os/.idea/workspace.xml'
-2021-01-30 08:21:41: Copy Over '/Users/xmmmmmovo/Documents/code/rupaOS/learn_os/rCore-Tutorial/os/src/linker.ld' -> 'sftp://39.105.110.28:57122/root/rcore/os/src/linker.ld'
-2021-01-30 08:21:42: == Sync Complete. Time: 00:00:01, Speed: 0.0/s, OK: 2, Errors: 0
-2021-01-30 08:21:42: 

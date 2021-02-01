@@ -5,4 +5,6 @@ members = [
     "self_types",
     "variable_bind",
     "variable_cast",
+    "control",
+    "function",
 ]

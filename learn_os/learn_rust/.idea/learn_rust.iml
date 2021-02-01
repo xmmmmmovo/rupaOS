@@ -7,6 +7,8 @@
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/types/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/variable_bind/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/control/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/function/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/variable_cast/src" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>

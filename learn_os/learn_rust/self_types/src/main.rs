@@ -103,7 +103,7 @@ fn enum_test() {
 
     let pressed = WebEvent::KeyPress('x');
     // `to_owned()` 从一个字符串切片中创建一个具有所有权的 `String`。
-    let pasted = WebEvent::Paste("my text".to_owned());
+    let pasted = WebEvent::Paste("myy text".to_owned());
     let click = WebEvent::Click { x: 20, y: 80 };
     let load = WebEvent::PageLoad;
     let unload = WebEvent::PageUnload;

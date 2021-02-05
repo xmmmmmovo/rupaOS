@@ -303,7 +303,7 @@ fn clone_test() {
     println!("copy: {:?}", moved_pair);
 
     // 报错！`pair` 已失去了它的资源。
-    //println!("original: {:?}", pair);
+    // println!("original: {:?}", pair);
     // 试一试 ^ 取消此行注释。
 
     // 将 `moved_pair`（包括其资源）克隆到 `cloned_pair`。

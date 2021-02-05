@@ -1,3 +1,5 @@
+use std::fmt::{Debug, Display};
+
 fn own_move_test() {
     // 此函数取得堆分配的内存的所有权
     fn destroy_box(c: Box<i32>) {
@@ -325,7 +327,7 @@ fn lifetime_test() {
         x
     }
 
-    //fn invalid_output<'a>() -> &'a String { &String::from("foo") }
+    // fn invalid_output<'a>() -> &'a String { &String::from("foo") }
     // 上面代码是无效的：`'a` 存活的时间必须比函数的长。
     // 这里的 `&String::from("foo")` 将会创建一个 `String` 类型，然后对它取引用。
     // 数据在离开作用域时删掉，返回一个指向无效数据的引用。
@@ -341,9 +343,189 @@ fn lifetime_test() {
     let mut t = 3;
     add_one(&mut t);
     print_one(&t);
+
+    struct Owner(i32);
+
+    /// 译注：方法一般是不需要标明生命周期的，
+    /// 因为 self 的生命周期会赋给所有的输出 生命周期参数，
+    /// 详见 TRPL。
+    impl Owner {
+        // 标注生命周期，就像独立的函数一样。
+        fn add_one<'a>(&'a mut self) {
+            self.0 += 1;
+        }
+        fn print<'a>(&'a self) {
+            println!("`print`: {}", self.0);
+        }
+    }
+    let mut owner = Owner(18);
+
+    owner.add_one();
+    owner.print();
+
+    // 一个 `Borrowed` 类型，含有一个指向 `i32` 类型的引用。
+    // 该引用必须比 `Borrowed` 寿命更长。
+    #[derive(Debug)]
+    struct Borrowed<'a>(&'a i32);
+
+    // 和前面类似，这里的两个引用都必须比这个结构体长寿。
+    #[derive(Debug)]
+    struct NamedBorrowed<'a> {
+        x: &'a i32,
+        y: &'a i32,
+    }
+
+    // 一个枚举类型，其取值不是 `i32` 类型就是一个指向 `i32` 的引用。
+    #[derive(Debug)]
+    enum Either<'a> {
+        Num(i32),
+        Ref(&'a i32),
+    }
+
+    let x = 18;
+    let y = 15;
+
+    let single = Borrowed(&x);
+    let double = NamedBorrowed { x: &x, y: &y };
+    let reference = Either::Ref(&x);
+    let number = Either::Num(y);
+
+    println!("x is borrowed in {:?}", single);
+    println!("x and y are borrowed in {:?}", double);
+    println!("x is borrowed in {:?}", reference);
+    println!("y is *not* borrowed in {:?}", number);
+}
+
+fn lifetime_test2() {
+    // 带有生命周期标注的结构体。
+    #[derive(Debug)]
+    struct Borrowed<'a> {
+        x: &'a i32,
+    }
+
+    // 给 impl 标注生命周期。
+    impl<'a> Default for Borrowed<'a> {
+        fn default() -> Self {
+            Self { x: &10 }
+        }
+    }
+
+    let b: Borrowed = Default::default();
+    println!("b is {:?}", b);
+
+    #[derive(Debug)]
+    struct Ref<'a, T: 'a>(&'a T);
+    // `Ref` 包含一个指向泛型类型 `T` 的引用，其中 `T` 拥有一个未知的生命周期
+    // `'a`。`T` 拥有生命周期限制， `T` 中的任何*引用*都必须比 `'a` 活得更长。另外
+    // `Ref` 的生命周期也不能超出 `'a`。
+
+    // 一个泛型函数，使用 `Debug` trait 来打印内容。
+    fn print<T>(t: T)
+    where
+        T: Debug,
+    {
+        println!("`print`: t is {:?}", t);
+    }
+
+    // 这里接受一个指向 `T` 的引用，其中 `T` 实现了 `Debug` trait，并且在 `T` 中的
+    // 所有*引用*都必须比 `'a'` 存活时间更长。另外，`'a` 也要比函数活得更长。
+    fn print_ref<'a, T>(t: &'a T)
+    where
+        T: Debug + 'a,
+    {
+        println!("`print_ref`: t is {:?}", t);
+    }
+
+    let x = 7;
+    let ref_x = Ref(&x);
+
+    print_ref(&ref_x);
+    print(ref_x);
+
+    // 在这里，Rust 推导了一个尽可能短的生命周期。
+    // 然后这两个引用都被强制转成这个生命周期。
+    fn multiply<'a>(first: &'a i32, second: &'a i32) -> i32 {
+        first * second
+    }
+
+    // `<'a: 'b, 'b>` 读作生命周期 `'a` 至少和 `'b` 一样长。
+    // 在这里我们我们接受了一个 `&'a i32` 类型并返回一个 `&'b i32` 类型，这是
+    // 强制转换得到的结果。
+    fn choose_first<'a: 'b, 'b>(first: &'a i32, _: &'b i32) -> &'b i32 {
+        first
+    }
+
+    let first = 2; // 较长的生命周期
+
+    {
+        let second = 3; // 较短的生命周期
+
+        println!("The product is {}", multiply(&first, &second));
+        println!("{} is the first", choose_first(&first, &second));
+    };
+
+    // 产生一个拥有 `'static` 生命周期的常量。
+    static NUM: i32 = 18;
+
+    // 返回一个指向 `NUM` 的引用，该引用不取 `NUM` 的 `'static` 生命周期，
+    // 而是被强制转换成和输入参数的一样。
+    fn coerce_static<'a>(_: &'a i32) -> &'a i32 {
+        &NUM
+    }
+
+    {
+        // 产生一个 `string` 字面量并打印它：
+        let static_string = "I'm in read-only memory";
+        println!("static_string: {}", static_string);
+
+        // 当 `static_string` 离开作用域时，该引用不能再使用，不过
+        // 数据仍然存在于二进制文件里面。
+    }
+
+    {
+        // 产生一个整型给 `coerce_static` 使用：
+        let lifetime_num = 9;
+
+        // 将对 `NUM` 的引用强制转换成 `lifetime_num` 的生命周期：
+        let coerced_static = coerce_static(&lifetime_num);
+
+        println!("coerced_static: {}", coerced_static);
+    }
+
+    println!("NUM: {} stays accessible!", NUM);
+
+    // `elided_input` 和 `annotated_input` 事实上拥有相同的签名，
+    // `elided_input` 的生命周期会被编译器自动添加：
+    fn elided_input(x: &i32) {
+        println!("`elided_input`: {}", x)
+    }
+
+    fn annotated_input<'a>(x: &'a i32) {
+        println!("`annotated_input`: {}", x)
+    }
+
+    // 类似地，`elided_pass` 和 `annotated_pass` 也拥有相同的签名，
+    // 生命周期会被隐式地添加进 `elided_pass`：
+    fn elided_pass(x: &i32) -> &i32 {
+        x
+    }
+
+    fn annotated_pass<'a>(x: &'a i32) -> &'a i32 {
+        x
+    }
+
+    let x = 3;
+
+    elided_input(&x);
+    annotated_input(&x);
+
+    println!("`elided_pass`: {}", elided_pass(&x));
+    println!("`annotated_pass`: {}", annotated_pass(&x));
 }
 
 fn main() {
     alias_test();
     ref_test();
+    lifetime_test();
+    lifetime_test2();
 }

@@ -13,4 +13,5 @@ members = [
     "generic",
     "scope_rules",
     "trait_test",
+    "macro_test",
 ]

@@ -11,4 +11,6 @@ members = [
     "crates",
     "attribute",
     "generic",
+    "scope_rules",
+    "trait_test",
 ]

@@ -437,7 +437,7 @@ fn package_error() {
             match *self {
                 DoubleError::EmptyVec => "empty vectors not allowed",
                 // 这已经实现了 `Error`，所以采用它自己的实现。
-                DoubleError::Parse(ref e) => e.to_string(),
+                DoubleError::Parse(ref e) => e.description(),
             }
         }
 

@@ -286,7 +286,7 @@ fn g_test() {
 
 fn phantom_test() {
     // 这个虚元组结构体对 `A` 是泛型的，并且带有隐藏参数 `B`。
-    #[derive(PartialEq)] // 允许这种类型进行相等测试（equality test）。
+    #[derive(PartialEq)] // 允许这种类型进行相等测试（equality tests）。
     struct PhantomTuple<A, B>(A, PhantomData<B>);
 
     // 这个虚类型结构体对 `A` 是泛型的，并且带有隐藏参数 `B`。

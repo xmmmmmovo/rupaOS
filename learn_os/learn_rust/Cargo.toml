@@ -7,7 +7,7 @@ members = [
     "variable_cast",
     "control",
     "function",
-    "modd",
+    "mod_test",
     "crates",
     "attribute",
     "generic",

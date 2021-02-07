@@ -12,7 +12,7 @@
       <sourceFolder url="file://$MODULE_DIR$/crates/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/function/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/generic/src" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/modd/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/mod_test/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/variable_cast/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/error_handle/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/macro_test/src" isTestSource="false" />

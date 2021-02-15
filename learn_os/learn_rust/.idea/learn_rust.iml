@@ -23,6 +23,8 @@
       <sourceFolder url="file://$MODULE_DIR$/test_test/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/test_test/tests" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/trait_test/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/book_mod/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/csv_challenge/src" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
     <orderEntry type="inheritedJdk" />

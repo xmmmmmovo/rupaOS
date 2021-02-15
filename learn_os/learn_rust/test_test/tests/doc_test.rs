@@ -43,7 +43,7 @@ pub fn div(a: i32, b: i32) -> i32 {
 /// ```
 /// # // 被隐藏的行以 `#` 开始，但它们仍然会被编译！
 /// # fn try_main() -> Result<(), String> { // 隐藏行包围了文档中显示的函数体
-/// let res = try::try_div(10, 2)?;
+/// let input = try::try_div(10, 2)?;
 /// # Ok(()) // 从 try_main 返回
 /// # }
 /// # fn main() { // 开始主函数，其中将展开 `try_main` 函数

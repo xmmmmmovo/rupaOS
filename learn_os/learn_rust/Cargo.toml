@@ -18,5 +18,7 @@ members = [
     "std",
     "test_test",
     "std_ext",
-    "misc"
+    "misc",
+    "book_mod",
+    "csv_challenge"
 ]

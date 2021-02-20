@@ -21,17 +21,22 @@
 
 #[macro_use]
 mod console;
+mod interrupt;
 mod panic;
 mod sbi;
 
 // 汇编编写的程序入口，具体见该文件
-global_asm!(include_str!("entry.asm"));
+global_asm!(include_str!("asm/entry.asm"));
 
 /// Rust 的入口函数
 ///
 /// 在 `_start` 为我们进行了一系列准备之后，这是第一个被调用的 Rust 函数
 #[no_mangle]
 pub extern "C" fn rust_main() -> ! {
-    println!("Hello rupaOS!");
-    panic!("end of rust_main")
+    interrupt::init();
+    unsafe {
+        llvm_asm!("ebreak;"::::"volatile");
+    }
+
+    unreachable!();
 }

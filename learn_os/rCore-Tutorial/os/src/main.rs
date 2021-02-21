@@ -22,6 +22,7 @@
 #[macro_use]
 mod console;
 mod interrupt;
+mod memory;
 mod panic;
 mod sbi;
 
@@ -34,9 +35,7 @@ global_asm!(include_str!("asm/entry.asm"));
 #[no_mangle]
 pub extern "C" fn rust_main() -> ! {
     interrupt::init();
-    unsafe {
-        llvm_asm!("ebreak;"::::"volatile");
-    }
+    memory::init();
 
-    unreachable!();
+    panic!("end of core");
 }

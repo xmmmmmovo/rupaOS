@@ -32,7 +32,7 @@ const SBI_SHUTDOWN: usize = 8;
 ///
 /// 需要注意我们不能直接使用 Rust 中的 char 类型
 pub fn console_putchar(c: usize) {
-    sbi_call(SBI_CONSOLE_PUTCHAR, c, 0, 0);
+    sbi_call(SBI_CONSOLE_PUTCHAR,c, 0, 0);
 }
 
 /// 从控制台中读取一个字符

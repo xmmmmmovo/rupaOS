@@ -1,6 +1,6 @@
-use riscv::register::{scause::Scause, stvec};
+use riscv::register::{scause::{Exception, Interrupt, Scause, Trap}, sie, stvec};
 
-use super::context::Context;
+use super::{context::Context, timer};
 
 global_asm!(include_str!("../asm/interrupt.asm"));
 
@@ -14,6 +14,9 @@ pub fn init() {
             fn __interrupt();
         }
         stvec::write(__interrupt as usize, stvec::TrapMode::Direct);
+
+        // 开启外部中断使能
+        sie::set_sext();
     }
 }
 
@@ -23,5 +26,41 @@ pub fn init() {
 /// 具体的中断类型需要根据 scause 来推断，然后分别处理
 #[no_mangle]
 pub fn handle_interrupt(context: &mut Context, scause: Scause, stval: usize) {
-    panic!("Interrupted: {:?}", scause.cause());
+    match scause.cause() {
+        Trap::Exception(Exception::Breakpoint) => breakpoint(context),
+        Trap::Interrupt(Interrupt::SupervisorTimer) => supervisor_timer(context),
+        Trap::Exception(Exception::LoadFault) => {
+            if stval == 0 {
+                println!("SUCCESS!")
+            } else {
+                panic!("mem out of bound!")
+            }
+        }
+        _ => fault(context, scause, stval),
+    }
+}
+
+/// 处理 ebreak 断点
+///
+/// 继续执行，其中 `sepc` 增加 2 字节，以跳过当前这条 `ebreak` 指令
+fn breakpoint(context: &mut Context) {
+    println!("Breakpoint at 0x{:x}", context.sepc);
+    context.sepc += 2;
+}
+
+/// 处理时钟中断
+///
+/// 目前只会在 [`timer`] 模块中进行计数
+fn supervisor_timer(_: &Context) {
+    timer::tick();
+}
+
+/// 出现未能解决的异常
+fn fault(context: &mut Context, scause: Scause, stval: usize) {
+    panic!(
+        "Unresolved interrupt: {:?}\n{:x?}\nstval: {:x}",
+        scause.cause(),
+        context,
+        stval
+    );
 }

@@ -1,10 +1,14 @@
+//! 实现操作系统动态内存分配所用的堆
+//!
+//! 基于 `buddy_system_allocator` crate，致敬杰哥。
 use super::config::KERNEL_HEAP_SIZE;
+use buddy_system_allocator::LockedHeap;
 
 /// 进行动态内存分配所用的堆空间
 ///
-/// 大小为 [`KERNEL_HEAP_SIZE`]  
+/// 大小为 [`KERNEL_HEAP_SIZE`]
 /// 这段空间编译后会被放在操作系统执行程序的 bss 段
-static mut HEAP_SIZE: [u8; KERNEL_HEAP_SIZE] = [0; KERNEL_HEAP_SIZE];
+static mut HEAP_SPACE: [u8; KERNEL_HEAP_SIZE] = [0; KERNEL_HEAP_SIZE];
 
 /// 堆，动态内存分配器
 ///
@@ -18,9 +22,8 @@ static HEAP: LockedHeap = LockedHeap::empty();
 pub fn init() {
     // 告诉分配器使用这一段预留的空间作为堆
     unsafe {
-        HEAP.lock().init(
-            HEAP_SPACE.as_ptr() as usize, KERNEL_HEAP_SIZE
-        )
+        HEAP.lock()
+            .init(HEAP_SPACE.as_ptr() as usize, KERNEL_HEAP_SIZE);
     }
 }
 

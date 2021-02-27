@@ -1,6 +1,7 @@
 //! 负责分配 / 回收的数据结构
 
 mod bitmap_vector_allocator;
+mod buddy_system_allocator;
 mod stacked_allocator;
 
 /// 分配器：固定容量，每次分配 / 回收一个元素
@@ -26,9 +27,12 @@ pub trait VectorAllocator {
 }
 
 pub use bitmap_vector_allocator::BitmapVectorAllocator;
+pub use buddy_system_allocator::BuddySystemAllocator;
 pub use stacked_allocator::StackedAllocator;
 
 /// 默认使用的分配器
 pub type AllocatorImpl = StackedAllocator;
 
 pub type VectorAllocatorImpl = BitmapVectorAllocator;
+
+pub type BuddySystemAllocatorImpl = BuddySystemAllocator;

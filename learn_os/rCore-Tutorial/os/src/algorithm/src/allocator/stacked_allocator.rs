@@ -1,5 +1,6 @@
-use super::Allocator;
+//! 提供栈结构实现的分配器 [`StackedAllocator`]
 
+use super::Allocator;
 use alloc::{vec, vec::Vec};
 
 /// 使用栈结构实现分配器
@@ -19,7 +20,6 @@ impl Allocator for StackedAllocator {
 
     fn alloc(&mut self) -> Option<usize> {
         if let Some((start, end)) = self.list.pop() {
-            // 这里start+1说明空闲空间-1，分配一个
             if end - start > 1 {
                 self.list.push((start + 1, end));
             }
@@ -30,8 +30,6 @@ impl Allocator for StackedAllocator {
     }
 
     fn dealloc(&mut self, index: usize) {
-        // 尾部扩容
-        // 这样是存在内存碎片但是不会出现内存重叠问题
         self.list.push((index, index + 1));
     }
 }

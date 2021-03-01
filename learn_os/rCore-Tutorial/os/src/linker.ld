@@ -1,4 +1,4 @@
-/* 有关 Linker Script 可以参考：https://sourceware.org/binutils/docs/ld/Scripts.html */
+/* Linker Script 语法可以参见：http://www.scoberlin.de/content/media/http/informatik/gcc_docs/ld_3.html */
 
 /* 目标架构 */
 OUTPUT_ARCH(riscv)
@@ -10,14 +10,13 @@ ENTRY(_start)
 BASE_ADDRESS = 0xffffffff80200000;
 
 SECTIONS
-{
+{   
     /* . 表示当前地址（location counter） */
     . = BASE_ADDRESS;
 
     /* start 符号表示全部的开始位置 */
     kernel_start = .;
 
-    /* 对齐 */
     . = ALIGN(4K);
     text_start = .;
 
@@ -29,7 +28,6 @@ SECTIONS
         *(.text .text.*)
     }
 
-    /* 对齐 */
     . = ALIGN(4K);
     rodata_start = .;
 
@@ -39,7 +37,6 @@ SECTIONS
         *(.rodata .rodata.*)
     }
 
-    /* 对齐 */
     . = ALIGN(4K);
     data_start = .;
 
@@ -49,7 +46,6 @@ SECTIONS
         *(.data .data.*)
     }
 
-    /* 对齐 */
     . = ALIGN(4K);
     bss_start = .;
 
@@ -59,8 +55,7 @@ SECTIONS
         *(.sbss .bss .bss.*)
     }
 
-    /* 对齐 */
-    . = ALIGN(4K);
     /* 结束地址 */
+    . = ALIGN(4K);
     kernel_end = .;
 }

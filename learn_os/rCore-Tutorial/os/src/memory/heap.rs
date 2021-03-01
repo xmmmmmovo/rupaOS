@@ -1,6 +1,7 @@
 //! 实现操作系统动态内存分配所用的堆
 //!
 //! 基于 `buddy_system_allocator` crate，致敬杰哥。
+
 use super::config::KERNEL_HEAP_SIZE;
 use buddy_system_allocator::LockedHeap;
 
@@ -23,7 +24,7 @@ pub fn init() {
     // 告诉分配器使用这一段预留的空间作为堆
     unsafe {
         HEAP.lock()
-            .init(HEAP_SPACE.as_ptr() as usize, KERNEL_HEAP_SIZE);
+            .init(HEAP_SPACE.as_ptr() as usize, KERNEL_HEAP_SIZE)
     }
 }
 

@@ -17,6 +17,8 @@ use core::fmt::{self, Write};
 /// 一个 [Zero-Sized Type]，实现 [`core::fmt::Write`] trait 来进行格式化输出
 ///
 /// ZST 只可能有一个值（即为空），因此它本身就是一个单件
+///
+/// [Zero-Sized Type]: https://doc.rust-lang.org/nomicon/exotic-sizes.html#zero-sized-types-zsts
 struct Stdout;
 
 impl Write for Stdout {
@@ -62,4 +64,52 @@ macro_rules! println {
     ($fmt: literal $(, $($arg: tt)+)?) => {
         $crate::console::print(format_args!(concat!($fmt, "\n") $(, $($arg)+)?));
     }
+}
+
+/// 类似 `std::dbg` 宏
+///
+/// 可以实现方便的对变量输出的效果
+#[macro_export]
+#[allow(unused_macros)]
+macro_rules! dbg {
+    () => {
+        println!("[{}:{}]", file!(), line!());
+    };
+    ($val:expr) => {
+        match $val {
+            tmp => {
+                println!("[{}:{}] {} = {:#?}",
+                    file!(), line!(), stringify!($val), &tmp);
+                tmp
+            }
+        }
+    };
+    ($val:expr,) => { $crate::dbg!($val) };
+    ($($val:expr),+ $(,)?) => {
+        ($($crate::dbg!($val)),+,)
+    };
+}
+
+/// 类似 `std::dbg` 宏（16 进制输出）
+///
+/// 可以实现方便的对变量输出的效果（16 进制输出）
+#[macro_export]
+#[allow(unused_macros)]
+macro_rules! dbgx {
+    () => {
+        println!("[{}:{}]", file!(), line!());
+    };
+    ($val:expr) => {
+        match $val {
+            tmp => {
+                println!("[{}:{}] {} = {:#x?}",
+                    file!(), line!(), stringify!($val), &tmp);
+                tmp
+            }
+        }
+    };
+    ($val:expr,) => { dbgx!($val) };
+    ($($val:expr),+ $(,)?) => {
+        ($(dbgx!($val)),+,)
+    };
 }

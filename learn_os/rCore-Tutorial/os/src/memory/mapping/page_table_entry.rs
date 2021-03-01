@@ -12,8 +12,7 @@
 //!
 //! 我们使用 Sv39，Sv48 同理，只是它具有四级页表。
 
-use crate::memory::{PhysicalAddress, PhysicalPageNumber};
-use _core::fmt::{Debug, Result};
+use crate::memory::address::*;
 use bit_field::BitField;
 use bitflags::*;
 
@@ -21,9 +20,9 @@ use bitflags::*;
 #[derive(Copy, Clone, Default)]
 pub struct PageTableEntry(usize);
 
-/// Sv39 页表标志位的位置
+/// Sv39 页表项中标志位的位置
 const FLAG_RANGE: core::ops::Range<usize> = 0..8;
-/// Sv39 页表项中的物理页号
+/// Sv39 页表项中物理页号的位置
 const PAGE_NUMBER_RANGE: core::ops::Range<usize> = 10..54;
 
 impl PageTableEntry {
@@ -78,9 +77,10 @@ impl PageTableEntry {
     }
 }
 
-impl Debug for PageTableEntry {
-    fn fmt(&self, f: &mut _core::fmt::Formatter<'_>) -> Result {
-        f.debug_struct("PageTableEntry")
+impl core::fmt::Debug for PageTableEntry {
+    fn fmt(&self, formatter: &mut core::fmt::Formatter) -> core::fmt::Result {
+        formatter
+            .debug_struct("PageTableEntry")
             .field("value", &self.0)
             .field("page_number", &self.page_number())
             .field("flags", &self.flags())
@@ -91,23 +91,23 @@ impl Debug for PageTableEntry {
 bitflags! {
     /// 页表项中的 8 个标志位
     #[derive(Default)]
-    pub struct Flags: u8{
-      /// 有效位
-      const VALID =       1 << 0;
-      /// 可读位
-      const READABLE =    1 << 1;
-      /// 可写位
-      const WRITABLE =    1 << 2;
-      /// 可执行位
-      const EXECUTABLE =  1 << 3;
-      /// 用户位
-      const USER =        1 << 4;
-      /// 全局位，我们不会使用
-      const GLOBAL =      1 << 5;
-      /// 已使用位，用于替换算法
-      const ACCESSED =    1 << 6;
-      /// 已修改位，用于替换算法
-      const DIRTY =       1 << 7;
+    pub struct Flags: u8 {
+        /// 有效位
+        const VALID =       1 << 0;
+        /// 可读位
+        const READABLE =    1 << 1;
+        /// 可写位
+        const WRITABLE =    1 << 2;
+        /// 可执行位
+        const EXECUTABLE =  1 << 3;
+        /// 用户位
+        const USER =        1 << 4;
+        /// 全局位，我们不会使用
+        const GLOBAL =      1 << 5;
+        /// 已使用位，用于替换算法
+        const ACCESSED =    1 << 6;
+        /// 已修改位，用于替换算法
+        const DIRTY =       1 << 7;
     }
 }
 

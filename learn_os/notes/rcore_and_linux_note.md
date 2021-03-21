@@ -103,11 +103,21 @@ NUMA:
 
 同样，我们手动修改一个页表项之后，也修改了映射，但 TLB 并不会自动刷新，我们也需要使用 `sfence.vma` 指令刷新 TLB。如果不加参数的，`sfence.vma` 会刷新整个 TLB。你可以在后面加上一个虚拟地址，这样 `sfence.vma` 只会刷新这个虚拟地址的映射。
 
+#### 实现思路
 
+整理完了所有的知识，现在来思考一个问题──在内存初始化之前，内核代码和地址是怎么分配的？
 
+答案就是使用`Fixed map`来进行内存配置，主要是在`mm_init`初始化之前，先将内存分解为固定的内存块，在boot的时候将其直接映射到物理地址上去。
 
+一般来说，虚拟内存都是会分为下面几部分：
 
+![image-20210314195252100](https://cdn.jsdelivr.net/gh/xmmmmmovo/ResourcesBackup/blog/image-20210314195252100.png)
 
+其中fixed就是fixedmap的区域，这一块最好看qemu中的源码，其中用c语言模拟了`fixed_map`(源码里搜索fixed_map)并且也根据fixedmap进行了一些引导。
+
+![1771657-20190831230833457-192209033](https://cdn.jsdelivr.net/gh/xmmmmmovo/ResourcesBackup/blog/1771657-20190831230833457-192209033.png)
+
+上面这是内存布局的详细信息👆🏻
 
 
 

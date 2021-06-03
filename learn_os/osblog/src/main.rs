@@ -1,5 +1,9 @@
+// Steve Operating System
+// Stephen Marz
+// 21 Sep 2019
+#![no_main]
 #![no_std]
-#![feature(panic_info_message, llvm_asm)]
+#![feature(panic_info_message, asm, llvm_asm, global_asm)]
 
 // ///////////////////////////////////
 // / RUST MACROS
@@ -42,6 +46,7 @@ fn panic(info: &core::panic::PanicInfo) -> ! {
     }
     abort();
 }
+
 #[no_mangle]
 extern "C" fn abort() -> ! {
     loop {
@@ -68,3 +73,4 @@ extern "C" fn kmain() {
 // ///////////////////////////////////
 // / RUST MODULES
 // ///////////////////////////////////
+pub mod assembly;

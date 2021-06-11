@@ -8,19 +8,9 @@ DISASM_TMP := target/$(TARGET)/$(MODE)/asm
 # BOARD
 BOARD ?= qemu
 SBI ?= rustsbi
-BOOTLOADER := ../bootloader/$(SBI)-$(BOARD).bin
-K210_BOOTLOADER_SIZE := 131072
+BOOTLOADER := ../bootloader/$(SBI).bin
 
-# KERNEL ENTRY
-ifeq ($(BOARD), qemu)
-	KERNEL_ENTRY_PA := 0x80200000
-else ifeq ($(BOARD), k210)
-	KERNEL_ENTRY_PA := 0x80020000
-endif
-
-# Run K210
-K210-SERIALPORT	= /dev/ttyUSB0
-K210-BURNER = ../tools/kflash.py
+KERNEL_ENTRY_PA := 0x80200000
 
 # Binutils
 OBJDUMP := rust-objdump --arch-name=riscv64
@@ -29,12 +19,13 @@ OBJCOPY := rust-objcopy --binary-architecture=riscv64
 # Disassembly
 DISASM ?= -x
 
-build: $(KERNEL_BIN)
+build: env $(KERNEL_BIN)
 
 $(KERNEL_BIN): kernel
 	@$(OBJCOPY) $(KERNEL_ELF) --strip-all -O binary $@
 
 kernel:
+	@cd ../user && make build
 	@echo Platform: $(BOARD)
 	@cargo build --release
 
@@ -52,21 +43,11 @@ disasm-vim: kernel
 run: run-inner
 
 run-inner: build
-ifeq ($(BOARD),qemu)
 	@qemu-system-riscv64 \
 		-machine virt \
 		-nographic \
 		-bios $(BOOTLOADER) \
-		-device loader,file=$(KERNELBIN),addr=$(KERNEL_ENTRY_PA)
-else
-	(which $(K210-BURNER)) || (cd .. && git clone https://github.com/sipeed/kflash.py.git && mv kflash.py tools)
-	@cp (BOOTLOADER)(BOOTLOADER).copy
-	@dd if=(KERNELBIN)of=(BOOTLOADER).copy bs=$(K210_BOOTLOADER_SIZE) seek=1
-	@mv (BOOTLOADER).copy(KERNEL_BIN)
-	@sudo chmod 777 $(K210-SERIALPORT)
-	python3 (K210−BURNER)−p(K210-SERIALPORT) -b 1500000 $(KERNEL_BIN)
-	python3 -m serial.tools.miniterm --eol LF --dtr 0 --rts 0 --filter direct $(K210-SERIALPORT) 115200
-endif
+		-device loader,file=$(KERNEL_BIN),addr=$(KERNEL_ENTRY_PA)
 
 debug: build
 	@tmux new-session -d \

@@ -1,7 +1,0 @@
-.idea/*
-target
-.idea/*
-os/src/link_app.S
-Cargo.lock
-tools/
-.vscode/*
